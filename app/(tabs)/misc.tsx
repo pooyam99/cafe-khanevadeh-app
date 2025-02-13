@@ -4,9 +4,12 @@ import { Button, Surface } from 'react-native-paper'
 
 import { Locales, ScreenInfo, styles } from '@/lib'
 
-const Profile = () => (
+const Misc = () => (
   <Surface style={styles.screen}>
-    <ScreenInfo title={Locales.t('profile')} path="app/(tabs)/profile.tsx" />
+    <ScreenInfo
+      title={Locales.t('tabs.coffee')}
+      path="app/(tabs)/profile.tsx"
+    />
 
     <Surface
       elevation={0}
@@ -30,4 +33,4 @@ const Profile = () => (
   </Surface>
 )
 
-export default Profile
+export default Misc

@@ -78,10 +78,10 @@ const DrawerLayout = () => {
           }}
         />
         <Drawer.Screen
-          name="profile"
+          name="coffee"
           options={{
-            drawerLabel: Locales.t('profile'),
-            title: Locales.t('profile'),
+            drawerLabel: Locales.t('tabs.coffee'),
+            title: Locales.t('tabs.coffee'),
             headerRight: () => (
               <>
                 <Tooltip title={Locales.t('search')}>

@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { JetBrainsMono_400Regular } from '@expo-google-fonts/jetbrains-mono'
 import { NotoSans_400Regular } from '@expo-google-fonts/noto-sans'
+import { Vazirmatn_400Regular } from '@expo-google-fonts/vazirmatn'
 import {
   DarkTheme as NavDarkTheme,
   DefaultTheme as NavLightTheme,
@@ -30,6 +31,7 @@ const RootLayout = () => {
   const [loaded, error] = useFonts({
     NotoSans_400Regular,
     JetBrainsMono_400Regular,
+    Vazirmatn_400Regular,
     ...MaterialCommunityIcons.font,
   })
 
@@ -54,9 +56,9 @@ const RootLayout = () => {
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme()
   const [settings, setSettings] = React.useState<Setting>({
-    theme: 'auto',
+    theme: 'dark',
     color: 'default',
-    language: 'auto',
+    language: 'fa',
   })
 
   // Load settings from the device
@@ -117,17 +119,17 @@ const RootLayoutNav = () => {
             ),
           }}
         >
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          {/* <Stack.Screen name="(auth)" options={{ headerShown: false }} /> */}
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="drawer" options={{ headerShown: false }} />
-          <Stack.Screen
+          {/* <Stack.Screen name="drawer" options={{ headerShown: false }} /> */}
+          {/* <Stack.Screen
             name="search"
             options={{ title: Locales.t('search') }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="modal"
             options={{ title: Locales.t('titleModal'), presentation: 'modal' }}
-          />
+          /> */}
         </Stack>
       </PaperProvider>
 

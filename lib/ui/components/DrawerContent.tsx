@@ -23,7 +23,7 @@ const DrawerContent = (props: DrawerContentProps) => (
       onPress={() => router.push('/drawer')}
     />
     <Drawer.Item
-      label={Locales.t('profile')}
+      label={Locales.t('tabs.coffee')}
       icon="account"
       active={props.navProps.state.index === 1}
       onPress={() => router.push('/drawer/profile')}
