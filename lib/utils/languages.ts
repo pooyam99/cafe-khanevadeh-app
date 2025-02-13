@@ -4,21 +4,21 @@
 
 const Languages = {
   ar: {
-    name: 'Arabic',
-    nativeName: 'العربية',
+    name: "Arabic",
+    nativeName: "العربية",
   },
   en: {
-    name: 'English',
-    nativeName: 'English',
+    name: "English",
+    nativeName: "English",
   },
   fa: {
-    name: 'Farsi',
-    nativeName: 'فارسی',
+    name: "Farsi",
+    nativeName: "فارسی",
   },
   tr: {
-    name: 'Turkish',
-    nativeName: 'Türkçe',
+    name: "Turkish",
+    nativeName: "Türkçe",
   },
-}
+};
 
-export default Languages
+export default Languages;

@@ -1,14 +1,13 @@
-import { router } from 'expo-router'
-import { Drawer } from 'expo-router/drawer'
-import React from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { Appbar, Menu, Tooltip, useTheme } from 'react-native-paper'
-
-import { DrawerContent, DrawerHeader, Locales } from '@/lib'
+import React from "react";
+import { DrawerContent, DrawerHeader, Locales } from "@/lib";
+import { router } from "expo-router";
+import { Drawer } from "expo-router/drawer";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Appbar, Menu, Tooltip, useTheme } from "react-native-paper";
 
 const DrawerLayout = () => {
-  const theme = useTheme()
-  const [visible, setVisible] = React.useState(false)
+  const theme = useTheme();
+  const [visible, setVisible] = React.useState(false);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -29,19 +28,18 @@ const DrawerLayout = () => {
           header: (props) => (
             <DrawerHeader navProps={props} children={undefined} />
           ),
-        }}
-      >
+        }}>
         <Drawer.Screen
           name="index"
           options={{
-            drawerLabel: Locales.t('titleHome'),
-            title: Locales.t('titleHome'),
+            drawerLabel: Locales.t("titleHome"),
+            title: Locales.t("titleHome"),
             headerRight: () => (
               <>
-                <Tooltip title={Locales.t('search')}>
+                <Tooltip title={Locales.t("search")}>
                   <Appbar.Action
                     icon="magnify"
-                    onPress={() => router.push('/search')}
+                    onPress={() => router.push("/search")}
                   />
                 </Tooltip>
                 <Menu
@@ -49,28 +47,27 @@ const DrawerLayout = () => {
                   visible={visible}
                   onDismiss={() => setVisible(false)}
                   anchor={
-                    <Tooltip title={Locales.t('options')}>
+                    <Tooltip title={Locales.t("options")}>
                       <Appbar.Action
                         icon="dots-vertical"
                         onPress={() => setVisible(true)}
                       />
                     </Tooltip>
-                  }
-                >
+                  }>
                   <Menu.Item
-                    title={Locales.t('titleSettings')}
+                    title={Locales.t("titleSettings")}
                     leadingIcon="cog"
-                    onPress={() => router.push('/drawer/settings')}
+                    onPress={() => router.push("/drawer/settings")}
                   />
                   <Menu.Item
-                    title={Locales.t('stackNav')}
+                    title={Locales.t("stackNav")}
                     leadingIcon="card-multiple-outline"
-                    onPress={() => router.push('/modal')}
+                    onPress={() => router.push("/modal")}
                   />
                   <Menu.Item
-                    title={Locales.t('drawerNav')}
+                    title={Locales.t("drawerNav")}
                     leadingIcon="gesture-swipe"
-                    onPress={() => router.push('/drawer')}
+                    onPress={() => router.push("/drawer")}
                   />
                 </Menu>
               </>
@@ -80,20 +77,20 @@ const DrawerLayout = () => {
         <Drawer.Screen
           name="coffee"
           options={{
-            drawerLabel: Locales.t('tabs.coffee'),
-            title: Locales.t('tabs.coffee'),
+            drawerLabel: Locales.t("tabs.coffee"),
+            title: Locales.t("tabs.coffee"),
             headerRight: () => (
               <>
-                <Tooltip title={Locales.t('search')}>
+                <Tooltip title={Locales.t("search")}>
                   <Appbar.Action
                     icon="magnify"
-                    onPress={() => router.push('/search')}
+                    onPress={() => router.push("/search")}
                   />
                 </Tooltip>
-                <Tooltip title={Locales.t('titleSettings')}>
+                <Tooltip title={Locales.t("titleSettings")}>
                   <Appbar.Action
                     icon="cog"
-                    onPress={() => router.push('/(tabs)/settings')}
+                    onPress={() => router.push("/(tabs)/settings")}
                   />
                 </Tooltip>
               </>
@@ -103,13 +100,13 @@ const DrawerLayout = () => {
         <Drawer.Screen
           name="settings"
           options={{
-            drawerLabel: Locales.t('titleSettings'),
-            title: Locales.t('titleSettings'),
+            drawerLabel: Locales.t("titleSettings"),
+            title: Locales.t("titleSettings"),
             headerRight: () => (
-              <Tooltip title={Locales.t('stackNav')}>
+              <Tooltip title={Locales.t("stackNav")}>
                 <Appbar.Action
                   icon="card-multiple-outline"
-                  onPress={() => router.push('/modal')}
+                  onPress={() => router.push("/modal")}
                 />
               </Tooltip>
             ),
@@ -117,7 +114,7 @@ const DrawerLayout = () => {
         />
       </Drawer>
     </GestureHandlerRootView>
-  )
-}
+  );
+};
 
-export default DrawerLayout
+export default DrawerLayout;

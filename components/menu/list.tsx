@@ -1,9 +1,9 @@
-import { FlashList } from '@shopify/flash-list'
-import React from 'react'
-import { FlatList, View } from 'react-native'
+import React from "react";
+import { FlashList } from "@shopify/flash-list";
+import { FlatList, View } from "react-native";
 
-import MenuCard from './card'
-import { MenuItemData } from './dummyData'
+import MenuCard from "./card";
+import { MenuItemData } from "./dummyData";
 
 const MenuList = () => {
   return (
@@ -18,7 +18,7 @@ const MenuList = () => {
         // estimatedItemSize={50}
       />
     </View>
-  )
-}
+  );
+};
 
-export default MenuList
+export default MenuList;

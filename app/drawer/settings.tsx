@@ -1,16 +1,4 @@
-import * as SecureStore from 'expo-secure-store'
-import React from 'react'
-import { Platform, useColorScheme } from 'react-native'
-import {
-  Surface,
-  List,
-  Menu,
-  Button,
-  IconButton,
-  Snackbar,
-  Icon,
-} from 'react-native-paper'
-
+import React from "react";
 import {
   Color,
   Colors,
@@ -21,28 +9,39 @@ import {
   ScreenInfo,
   Setting,
   styles,
-} from '@/lib'
+} from "@/lib";
+import * as SecureStore from "expo-secure-store";
+import { Platform, useColorScheme } from "react-native";
+import {
+  Button,
+  Icon,
+  IconButton,
+  List,
+  Menu,
+  Snackbar,
+  Surface,
+} from "react-native-paper";
 
 const Settings = () => {
-  const colorScheme = useColorScheme()
-  const [loading, setLoading] = React.useState<boolean>(false)
-  const [message, setMessage] = React.useState({ visible: false, content: '' })
+  const colorScheme = useColorScheme();
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [message, setMessage] = React.useState({ visible: false, content: "" });
   const [settings, setSettings] = React.useState<Setting>({
-    color: 'default',
-    language: 'auto',
-    theme: 'auto',
-  })
+    color: "default",
+    language: "auto",
+    theme: "auto",
+  });
   const [display, setDisplay] = React.useState({
     color: false,
     language: false,
     theme: false,
-  })
+  });
 
   React.useEffect(() => {
-    setLoading(true)
+    setLoading(true);
 
-    if (Platform.OS !== 'web') {
-      SecureStore.getItemAsync('settings')
+    if (Platform.OS !== "web") {
+      SecureStore.getItemAsync("settings")
         .then((result) =>
           setSettings(JSON.parse(result ?? JSON.stringify(settings))),
         )
@@ -51,17 +50,17 @@ const Settings = () => {
             visible: true,
             content: res.message,
           }),
-        )
+        );
     }
 
-    setLoading(false)
+    setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const themeColors =
     Colors[
-      settings.theme === 'auto' ? (colorScheme ?? 'light') : settings.theme
-    ]
+      settings.theme === "auto" ? (colorScheme ?? "light") : settings.theme
+    ];
 
   return (
     <Surface style={{ flex: 1 }}>
@@ -72,12 +71,11 @@ const Settings = () => {
           <List.AccordionGroup>
             <List.Accordion
               id="1"
-              title={Locales.t('appearance')}
-              left={(props) => <List.Icon {...props} icon="palette" />}
-            >
+              title={Locales.t("appearance")}
+              left={(props) => <List.Icon {...props} icon="palette" />}>
               <List.Item
-                title={Locales.t('language')}
-                description={Locales.t('changeLanguage')}
+                title={Locales.t("language")}
+                description={Locales.t("changeLanguage")}
                 left={(props) => <List.Icon {...props} icon="translate" />}
                 right={(props) => (
                   <Menu
@@ -93,16 +91,15 @@ const Settings = () => {
                           setDisplay({ ...display, language: true })
                         }
                       />
-                    }
-                  >
+                    }>
                     <Menu.Item
                       title="System"
                       trailingIcon={
-                        settings.language === 'auto' ? 'check' : undefined
+                        settings.language === "auto" ? "check" : undefined
                       }
                       onPress={() => {
-                        setSettings({ ...settings, language: 'auto' })
-                        setDisplay({ ...display, language: false })
+                        setSettings({ ...settings, language: "auto" });
+                        setDisplay({ ...display, language: false });
                       }}
                     />
                     {Object.entries(Languages).map((lang) => (
@@ -110,14 +107,14 @@ const Settings = () => {
                         key={lang[0]}
                         title={`${lang[1].name} / ${lang[1].nativeName}`}
                         trailingIcon={
-                          settings.language === lang[0] ? 'check' : undefined
+                          settings.language === lang[0] ? "check" : undefined
                         }
                         onPress={() => {
                           setSettings({
                             ...settings,
                             language: lang[0] as Language,
-                          })
-                          setDisplay({ ...display, language: false })
+                          });
+                          setDisplay({ ...display, language: false });
                         }}
                       />
                     ))}
@@ -125,17 +122,17 @@ const Settings = () => {
                 )}
               />
               <List.Item
-                title={Locales.t('mode')}
-                description={Locales.t('changeMode')}
+                title={Locales.t("mode")}
+                description={Locales.t("changeMode")}
                 left={(props) => (
                   <List.Icon
                     {...props}
                     icon={
-                      settings.theme === 'auto'
-                        ? 'theme-light-dark'
-                        : settings.theme === 'light'
-                          ? 'weather-sunny'
-                          : 'weather-night'
+                      settings.theme === "auto"
+                        ? "theme-light-dark"
+                        : settings.theme === "light"
+                          ? "weather-sunny"
+                          : "weather-night"
                     }
                   />
                 )}
@@ -149,55 +146,54 @@ const Settings = () => {
                         icon="pencil"
                         onPress={() => setDisplay({ ...display, theme: true })}
                       />
-                    }
-                  >
+                    }>
                     <Menu.Item
-                      title={Locales.t('system')}
+                      title={Locales.t("system")}
                       leadingIcon="theme-light-dark"
                       trailingIcon={
-                        settings.theme === 'auto' ? 'check' : undefined
+                        settings.theme === "auto" ? "check" : undefined
                       }
                       onPress={() => {
-                        setSettings({ ...settings, theme: 'auto' })
-                        setDisplay({ ...display, theme: false })
+                        setSettings({ ...settings, theme: "auto" });
+                        setDisplay({ ...display, theme: false });
                       }}
                     />
                     <Menu.Item
-                      title={Locales.t('lightMode')}
+                      title={Locales.t("lightMode")}
                       leadingIcon="weather-sunny"
                       trailingIcon={
-                        settings.theme === 'light' ? 'check' : undefined
+                        settings.theme === "light" ? "check" : undefined
                       }
                       onPress={() => {
-                        setSettings({ ...settings, theme: 'light' })
-                        setDisplay({ ...display, theme: false })
+                        setSettings({ ...settings, theme: "light" });
+                        setDisplay({ ...display, theme: false });
                       }}
                     />
                     <Menu.Item
-                      title={Locales.t('darkMode')}
+                      title={Locales.t("darkMode")}
                       leadingIcon="weather-night"
                       trailingIcon={
-                        settings.theme === 'dark' ? 'check' : undefined
+                        settings.theme === "dark" ? "check" : undefined
                       }
                       onPress={() => {
-                        setSettings({ ...settings, theme: 'dark' })
-                        setDisplay({ ...display, theme: false })
+                        setSettings({ ...settings, theme: "dark" });
+                        setDisplay({ ...display, theme: false });
                       }}
                     />
                   </Menu>
                 )}
               />
               <List.Item
-                title={Locales.t('color')}
-                description={Locales.t('changeColor')}
+                title={Locales.t("color")}
+                description={Locales.t("changeColor")}
                 left={(props) => (
                   <List.Icon
                     {...props}
                     icon="palette-swatch-variant"
                     color={
                       Colors[
-                        settings.theme === 'auto'
-                          ? (colorScheme ?? 'light')
+                        settings.theme === "auto"
+                          ? (colorScheme ?? "light")
                           : settings.theme
                       ][settings.color]?.primary
                     }
@@ -213,18 +209,16 @@ const Settings = () => {
                         icon="pencil"
                         onPress={() => setDisplay({ ...display, color: true })}
                       />
-                    }
-                  >
+                    }>
                     {Object.keys(Colors.light).map((color) => (
                       <Surface
                         key={color}
                         elevation={0}
                         style={{
-                          width: '100%',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}
-                      >
+                          width: "100%",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}>
                         <Surface
                           elevation={0}
                           style={{
@@ -235,8 +229,7 @@ const Settings = () => {
                               color !== settings.color
                                 ? undefined
                                 : themeColors[color]?.primary,
-                          }}
-                        >
+                          }}>
                           <Icon
                             size={24}
                             source="palette"
@@ -255,8 +248,8 @@ const Settings = () => {
                             setSettings({
                               ...settings,
                               color: color as Color,
-                            })
-                            setDisplay({ ...display, color: false })
+                            });
+                            setDisplay({ ...display, color: false });
                           }}
                         />
                       </Surface>
@@ -271,7 +264,7 @@ const Settings = () => {
 
       <Surface elevation={0} style={styles.screen}>
         <ScreenInfo
-          title={Locales.t('titleSettings')}
+          title={Locales.t("titleSettings")}
           path="app/(tabs)/settings.tsx"
         />
       </Surface>
@@ -280,12 +273,12 @@ const Settings = () => {
         mode="contained"
         style={{ margin: 16 }}
         onPress={() =>
-          Platform.OS !== 'web'
-            ? SecureStore.setItemAsync('settings', JSON.stringify(settings))
+          Platform.OS !== "web"
+            ? SecureStore.setItemAsync("settings", JSON.stringify(settings))
                 .then(() =>
                   setMessage({
                     visible: true,
-                    content: Locales.t('restartApp'),
+                    content: Locales.t("restartApp"),
                   }),
                 )
                 .catch((res) =>
@@ -296,22 +289,20 @@ const Settings = () => {
                 )
             : setMessage({
                 visible: true,
-                content: Locales.t('notAvailable'),
+                content: Locales.t("notAvailable"),
               })
-        }
-      >
-        {Locales.t('save')}
+        }>
+        {Locales.t("save")}
       </Button>
 
       <Snackbar
         visible={message.visible}
         onDismiss={() => setMessage({ ...message, visible: false })}
-        onIconPress={() => setMessage({ ...message, visible: false })}
-      >
+        onIconPress={() => setMessage({ ...message, visible: false })}>
         {message.content}
       </Snackbar>
     </Surface>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;
