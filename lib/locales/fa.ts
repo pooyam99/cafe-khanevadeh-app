@@ -1,0 +1,56 @@
+/**
+ * Farsi Translations
+ */
+
+const English = {
+  tabs: {
+    menu: 'منو',
+    coffee: 'قهوه',
+    misc: 'متفرقه',
+    settings: 'تنظیمات',
+  },
+  login: 'ورود',
+  signup: 'ثبت نام',
+  profile: 'حساب کاربری',
+  options: 'گزینه‌ها',
+  search: 'جستجو',
+  stackNav: 'مسیریابی پشته‌ای',
+  drawerNav: 'مسیریابی کشویی',
+  appearance: 'ظاهر',
+  language: 'زبان',
+  changeLanguage: 'تغییر زبان نرم‌افزار',
+  system: 'سیستم',
+  mode: 'حالت',
+  changeMode: 'تغییر حالت روشن و تاریک',
+  lightMode: 'روشن',
+  darkMode: 'تاریک',
+  color: 'رنگ',
+  changeColor: 'تغییر رنگ تم',
+  changeScreenCode:
+    'هر بخشی از متن را تغییر داده و فایل را ذخیره کنید، نرم‌افزار به‌طور خودکار به‌روز خواهد شد',
+  goHome: 'برو به صفحه خانه',
+  openScreenCode: 'کد مربوط به این صفحه را باز کنید',
+  save: 'ذخیره',
+  screen404: 'این صفحه وجود ندارد',
+  titleHome: 'خانه',
+  titleModal: 'پنجره',
+  titleNotFound: 'پیدا نشد',
+  titleSettings: 'تنظیمات',
+  restartApp: 'برای اعمال تغییرات نرم‌افزار را دوباره اجرا کنید',
+  notAvailable: 'قابلیت Expo SecureStore برای وب قابل استفاده نیست',
+  adaptive: 'سازگار',
+  default: 'پیش‌فرض',
+  orange: 'نارنجی',
+  red: 'قرمز',
+  violet: 'بنفش',
+  indigo: 'نیلی',
+  blue: 'آبی',
+  teal: 'سبزدودی ',
+  cyan: 'سبزآبی',
+  green: 'سبز',
+  lime: 'لیمویی',
+  olive: 'زیتونی',
+  brown: 'قهوه‌ای',
+}
+
+export default English

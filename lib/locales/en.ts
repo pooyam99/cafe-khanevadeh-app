@@ -3,6 +3,12 @@
  */
 
 const English = {
+  tabs: {
+    menu: 'Menu',
+    coffee: 'Coffee',
+    misc: 'Misc',
+    settings: 'Settings',
+  },
   login: 'Log in',
   signup: 'Sign up',
   profile: 'Profile',

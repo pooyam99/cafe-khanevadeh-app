@@ -11,6 +11,10 @@ const Languages = {
     name: 'English',
     nativeName: 'English',
   },
+  fa: {
+    name: 'Farsi',
+    nativeName: 'فارسی',
+  },
   tr: {
     name: 'Turkish',
     nativeName: 'Türkçe',
