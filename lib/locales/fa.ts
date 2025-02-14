@@ -2,7 +2,7 @@
  * Farsi Translations
  */
 
-const English = {
+const Farsi = {
   tabs: {
     menu: "منو",
     coffee: "قهوه",
@@ -53,4 +53,4 @@ const English = {
   brown: "قهوه‌ای",
 };
 
-export default English;
+export default Farsi;
