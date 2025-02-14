@@ -17,6 +17,8 @@ import { StatusBar } from "expo-status-bar";
 import { Platform, useColorScheme } from "react-native";
 import { adaptNavigationTheme, PaperProvider } from "react-native-paper";
 
+import "./global.css"
+
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";
 
@@ -81,7 +83,7 @@ const RootLayoutNav = () => {
 
   React.useEffect(() => {
     if (settings.language === "auto") {
-      Locales.locale = Localization.getLocales()[0].languageCode ?? "en";
+      Locales.locale = Localization.getLocales()[0].languageCode ?? "fa";
     } else {
       Locales.locale = settings.language;
     }
