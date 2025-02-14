@@ -7,15 +7,14 @@ import { MenuItemData } from "./dummyData";
 
 const MenuList = () => {
   return (
-    <View>
+    <View className="size-full gap-2">
       <FlatList
         data={MenuItemData}
-        renderItem={({ item }) => (
-          <View style={{ paddingVertical: 3, paddingHorizontal: 4 }}>
-            <MenuCard {...item} />
-          </View>
-        )}
+        renderItem={({ item }) => <MenuCard {...item} />}
+        ItemSeparatorComponent={() => <View className="w-full h-2 bg-transparent" />}
         // estimatedItemSize={50}
+        refreshing={false}
+        onRefresh={() => null}
       />
     </View>
   );
