@@ -11,7 +11,7 @@ import {
 import Colors from "@/lib/ui/styles/colors";
 
 const fonts = configureFonts({
-  config: { fontFamily: "Vazirmatn_400Regular" },
+  config: { fontFamily: "Vazirmatn-Medium" },
 });
 
 const BaseLightTheme = {

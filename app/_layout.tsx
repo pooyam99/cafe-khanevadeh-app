@@ -32,10 +32,15 @@ SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [loaded, error] = useFonts({
-    NotoSans_400Regular,
-    JetBrainsMono_400Regular,
-    Vazirmatn_400Regular,
-    ...MaterialCommunityIcons.font,
+    "Vazirmatn-Black": require("../assets/fonts/Vazirmatn-FD-Black.ttf"),
+    "Vazirmatn-Bold": require("../assets/fonts/Vazirmatn-FD-Bold.ttf"),
+    "Vazirmatn-ExtraBold": require("../assets/fonts/Vazirmatn-FD-ExtraBold.ttf"),
+    "Vazirmatn-ExtraLight": require("../assets/fonts/Vazirmatn-FD-ExtraLight.ttf"),
+    "Vazirmatn-Light": require("../assets/fonts/Vazirmatn-FD-Light.ttf"),
+    "Vazirmatn-Medium": require("../assets/fonts/Vazirmatn-FD-Medium.ttf"),
+    "Vazirmatn-Regular": require("../assets/fonts/Vazirmatn-FD-Regular.ttf"),
+    "Vazirmatn-SemiBold": require("../assets/fonts/Vazirmatn-FD-SemiBold.ttf"),
+    "Vazirmatn-Thin": require("../assets/fonts/Vazirmatn-FD-Thin.ttf"),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -114,25 +119,25 @@ const RootLayoutNav = () => {
       }>
       <PaperProvider theme={theme}>
         <ClientProviders>
-        <Stack
-          screenOptions={{
-            animation: "slide_from_bottom",
-            header: (props) => (
-              <StackHeader navProps={props} children={undefined} />
-            ),
-          }}>
-          {/* <Stack.Screen name="(auth)" options={{ headerShown: false }} /> */}
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="drawer" options={{ headerShown: false }} /> */}
-          {/* <Stack.Screen
+          <Stack
+            screenOptions={{
+              animation: "slide_from_bottom",
+              header: (props) => (
+                <StackHeader navProps={props} children={undefined} />
+              ),
+            }}>
+            {/* <Stack.Screen name="(auth)" options={{ headerShown: false }} /> */}
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            {/* <Stack.Screen name="drawer" options={{ headerShown: false }} /> */}
+            {/* <Stack.Screen
             name="search"
             options={{ title: Locales.t('search') }}
           /> */}
-          {/* <Stack.Screen
+            {/* <Stack.Screen
             name="modal"
             options={{ title: Locales.t('titleModal'), presentation: 'modal' }}
           /> */}
-        </Stack>
+          </Stack>
           <StatusBar style="auto" />
         </ClientProviders>
       </PaperProvider>
