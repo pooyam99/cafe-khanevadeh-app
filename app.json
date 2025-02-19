@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "cafe",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -31,8 +31,23 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
-      "expo-font",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Vazirmatn-FD-Black.ttf",
+            "./assets/fonts/Vazirmatn-FD-Bold.ttf",
+            "./assets/fonts/Vazirmatn-FD-ExtraBold.ttf",
+            "./assets/fonts/Vazirmatn-FD-ExtraLight.ttf",
+            "./assets/fonts/Vazirmatn-FD-Light.ttf",
+            "./assets/fonts/Vazirmatn-FD-Medium.ttf",
+            "./assets/fonts/Vazirmatn-FD-Regular.ttf",
+            "./assets/fonts/Vazirmatn-FD-SemiBold.ttf",
+            "./assets/fonts/Vazirmatn-FD-Thin.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
