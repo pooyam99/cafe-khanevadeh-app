@@ -17,7 +17,9 @@ import { StatusBar } from "expo-status-bar";
 import { Platform, useColorScheme } from "react-native";
 import { adaptNavigationTheme, PaperProvider } from "react-native-paper";
 
-import "./global.css"
+import "./global.css";
+
+import ClientProviders from "@/providers/ClientProvider";
 
 // Catch any errors thrown by the Layout component.
 export { ErrorBoundary } from "expo-router";
@@ -111,6 +113,7 @@ const RootLayoutNav = () => {
           : { ...DarkTheme, fonts: NavDarkTheme.fonts }
       }>
       <PaperProvider theme={theme}>
+        <ClientProviders>
         <Stack
           screenOptions={{
             animation: "slide_from_bottom",
@@ -130,9 +133,9 @@ const RootLayoutNav = () => {
             options={{ title: Locales.t('titleModal'), presentation: 'modal' }}
           /> */}
         </Stack>
+          <StatusBar style="auto" />
+        </ClientProviders>
       </PaperProvider>
-
-      <StatusBar style="auto" />
     </ThemeProvider>
   );
 };
