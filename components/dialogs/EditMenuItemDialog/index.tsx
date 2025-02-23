@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Locales } from "@/lib";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import {
   Button,
   Dialog,
@@ -14,6 +14,7 @@ import {
 } from "react-native-paper";
 
 import { MenuItemT, MenuItemType } from "@/lib/types/menu";
+import fetchUrl from "@/lib/utils/fetchUrl";
 
 const EditMenuItemDialog = ({
   item,
@@ -25,11 +26,37 @@ const EditMenuItemDialog = ({
   onDismiss: () => void;
 }) => {
   const theme = useTheme();
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(item.attributes.title);
   const [description, setDescription] = useState(item.attributes.description);
   const [price, setPrice] = useState(item.attributes.price);
   const [type, setType] = useState<MenuItemType>(item.attributes.type);
   const [openMenu, setOpenMenu] = useState(false);
+  const [data, setData] = useState<Partial<MenuItemT>>({
+    attributes: {
+      title,
+      description,
+      price,
+      type,
+    },
+  });
+
+  useEffect(() => {
+    setData({
+      attributes: {
+        title,
+        description,
+        price,
+        type,
+      },
+    });
+  }, [title, description, price, type]);
+
+  const isDirty =
+    title !== item.attributes.title ||
+    description !== item.attributes.description ||
+    price !== item.attributes.price ||
+    type !== item.attributes.type;
 
   const inputTheme = {
     colors: {
@@ -43,10 +70,23 @@ const EditMenuItemDialog = ({
     "drink",
   ];
 
-  const handleSubmit = () => {
-    // Handle the submit action here
-    console.log({ name: title, description, price, type });
-    onDismiss();
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const response = await fetchUrl(`/menu-items/${item.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+      if (response) {
+        Alert.alert("Successfully submitted", response.toString());
+        onDismiss();
+      }
+    } catch (error: any) {
+      Alert.alert("Error submitting changes", error);
+    }
   };
 
   return (
@@ -85,27 +125,36 @@ const EditMenuItemDialog = ({
             theme={inputTheme}
           />
           <View
-            className="relative mt-1.5 flex h-[3.75rem] flex-row items-center justify-between rounded-2xl border"
+            className="relative mt-1.5 flex h-[3.75rem] flex-row items-center justify-between rounded-[0.85rem] border"
             style={{
               borderColor: theme.colors.outline,
             }}>
             <Text
               className="absolute -top-3 left-2.5 z-0 px-1.5 text-sm"
-              style={{ backgroundColor: theme.colors.elevation.level3, color: theme.colors.secondary }}>
+              style={{
+                backgroundColor: theme.colors.elevation.level3,
+                color: theme.colors.secondary,
+              }}>
               {Locales.t("menuItemAttributes.type.title")}
             </Text>
             <Text className="px-4">
-              {Locales.t(`menuItemAttributes.type.${item.attributes.type}`)}
+              {Locales.t(`menuItemAttributes.type.${type}`)}
             </Text>
             <Menu
               visible={openMenu}
               onDismiss={() => setOpenMenu(false)}
               anchorPosition="bottom"
               anchor={
-                <IconButton onPress={() => setOpenMenu(true)} icon={"pencil"} />
+                <IconButton
+                  onPress={() => setOpenMenu(true)}
+                  icon={"chevron-down"}
+                />
               }>
               <RadioButton.Group
-                onValueChange={(value) => setType(value as MenuItemType)}
+                onValueChange={(value) => {
+                  setType(value as MenuItemType);
+                  setOpenMenu(false);
+                }}
                 value={type}>
                 <View
                   style={{
@@ -128,7 +177,9 @@ const EditMenuItemDialog = ({
         </Dialog.Content>
         <Dialog.Actions>
           <Button onPress={onDismiss}>{Locales.t("buttons.cancel")}</Button>
-          <Button onPress={handleSubmit}>{Locales.t("buttons.submit")}</Button>
+          <Button loading={loading} disabled={!isDirty} onPress={handleSubmit}>
+            {Locales.t("buttons.submit")}
+          </Button>
         </Dialog.Actions>
       </Dialog>
     </Portal>
