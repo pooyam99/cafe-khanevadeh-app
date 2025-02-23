@@ -3,17 +3,37 @@
  */
 
 const Farsi = {
+  buttons: {
+    yes: "بله",
+    no: "خیر",
+    cancel: "لغو",
+    submit: "ثبت",
+    delete: "حذف"
+  },
   tabs: {
     menu: "منو",
     coffee: "قهوه",
     misc: "متفرقه",
     settings: "تنظیمات",
   },
+  menuItemAttributes: {
+    title: "عنوان",
+    description: "توضیحات",
+    price: "قیمت",
+    type: {
+      title: "نوع",
+      coffee: "قهوه",
+      chocolate: "شکلات",
+      food: "غذا",
+      drink: "نوشیدنی",
+    },
+  },
   login: "ورود",
   signup: "ثبت نام",
   profile: "حساب کاربری",
   options: "گزینه‌ها",
   search: "جستجو",
+  edit: "ویرایش",
   stackNav: "مسیریابی پشته‌ای",
   drawerNav: "مسیریابی کشویی",
   appearance: "ظاهر",

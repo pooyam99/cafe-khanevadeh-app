@@ -3,17 +3,37 @@
  */
 
 const English = {
+  buttons: {
+    yes: "Yes",
+    no: "No",
+    cancel: "Cancel",
+    submit: "Submit",
+    delete: "Delete"
+  },
   tabs: {
     menu: "Menu",
     coffee: "Coffee",
     misc: "Misc",
     settings: "Settings",
   },
+  menuItemAttributes: {
+    title: "Title",
+    description: "Description",
+    price: "Price",
+    type: {
+      title: "Type",
+      coffee: "Coffee",
+      chocolate: "Chocolate",
+      food: "Food",
+      drink: "Drinks",
+    },
+  },
   login: "Log in",
   signup: "Sign up",
   profile: "Profile",
   options: "Options",
   search: "Search",
+  edit: "Edit",
   stackNav: "Stack Navigation",
   drawerNav: "Drawer Navigation",
   appearance: "Appearance",

@@ -1,9 +1,11 @@
-export type MenuItemT = {
-  id: number;
+export type MenuItemType = "coffee" | "chocolate" | "food" | "drink";
+
+export interface MenuItemT {
+  id: number,
   attributes: {
     title: string;
-    description: string | null;
+    description: string;
     price: string;
-    type: "coffee" | "chocolate" | "food" | "drink";
+    type: MenuItemType;
   };
-};
+}

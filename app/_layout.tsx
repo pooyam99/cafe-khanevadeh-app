@@ -1,9 +1,5 @@
 import React from "react";
 import { Locales, Setting, StackHeader, Themes } from "@/lib";
-import { JetBrainsMono_400Regular } from "@expo-google-fonts/jetbrains-mono";
-import { NotoSans_400Regular } from "@expo-google-fonts/noto-sans";
-import { Vazirmatn_400Regular } from "@expo-google-fonts/vazirmatn";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   DarkTheme as NavDarkTheme,
   DefaultTheme as NavLightTheme,
