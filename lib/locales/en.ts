@@ -28,6 +28,11 @@ const English = {
       drink: "Drinks",
     },
   },
+  deleteItem: {
+    title: "Delete Menu Item",
+    message: "Are you sure you want to delete this item?"
+  },
+  add: "Add",
   login: "Log in",
   signup: "Sign up",
   profile: "Profile",
@@ -60,6 +65,7 @@ const English = {
   notAvailable: "Expo SecureStore is not available for web",
   adaptive: "adaptive",
   default: "default",
+  cafe: "cafe",
   orange: "orange",
   red: "red",
   violet: "violet",

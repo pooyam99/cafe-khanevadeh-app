@@ -17,5 +17,6 @@ const Locales = new I18n({
 });
 
 Locales.enableFallback = true;
+Locales.defaultLocale = "fa";
 
 export { Locales };
