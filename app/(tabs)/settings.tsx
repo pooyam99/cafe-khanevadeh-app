@@ -11,6 +11,7 @@ import {
   styles,
 } from "@/lib";
 import * as SecureStore from "expo-secure-store";
+import * as Updates from "expo-updates";
 import { Platform, useColorScheme } from "react-native";
 import {
   Button,
@@ -72,6 +73,7 @@ const Settings = () => {
             <List.Accordion
               id="1"
               title={Locales.t("appearance")}
+              expanded
               left={(props) => <List.Icon {...props} icon="palette" />}>
               <List.Item
                 title={Locales.t("language")}
@@ -287,6 +289,7 @@ const Settings = () => {
                     content: res.message,
                   }),
                 )
+                .then(() => Updates.reloadAsync())
             : setMessage({
                 visible: true,
                 content: Locales.t("notAvailable"),
