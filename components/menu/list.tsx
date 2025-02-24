@@ -6,6 +6,7 @@ import { FlatList, View } from "react-native";
 import { MenuItemT, MiscItemT } from "@/lib/types/menu";
 import { cn } from "@/lib/utils/className";
 
+import DeleteItemDialog from "../dialogs/DeleteItemDialog";
 import EditMenuItemDialog from "../dialogs/EditMenuItemDialog";
 import EditMiscItemDialog from "../dialogs/EditMiscItemDialog";
 import EmptySection from "../EmptySection";
@@ -21,8 +22,9 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
   query,
 }: MenuListProps<T>) => {
   const { data, isError, refetch, isRefetching, isLoading } = query;
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const [editDialogVisible, setEditDialogVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -35,9 +37,13 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
         renderItem={({ item }) => (
           <MenuCard
             item={item}
-            onPress={() => {
-              setDialogVisible(true);
+            onEdit={() => {
               setSelectedItem(item);
+              setEditDialogVisible(true);
+            }}
+            onDelete={() => {
+              setSelectedItem(item);
+              setDeleteDialogVisible(true);
             }}
           />
         )}
@@ -59,10 +65,10 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
         (mode === "menu" ? (
           <EditMenuItemDialog
             item={selectedItem as MenuItemT}
-            visible={dialogVisible}
+            visible={editDialogVisible}
             refetch={refetch}
             onDismiss={() => {
-              setDialogVisible(false);
+              setEditDialogVisible(false);
               setSelectedItem(null);
             }}
           />
@@ -70,14 +76,29 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
           <EditMiscItemDialog
             mode={mode}
             item={selectedItem as MiscItemT}
-            visible={dialogVisible}
+            visible={editDialogVisible}
             refetch={refetch}
             onDismiss={() => {
-              setDialogVisible(false);
+              setEditDialogVisible(false);
               setSelectedItem(null);
             }}
           />
         ))}
+      {selectedItem && (
+        <DeleteItemDialog
+          item={selectedItem}
+          mode={mode}
+          visible={deleteDialogVisible}
+          onDismiss={() => {
+            setSelectedItem(null);
+            setDeleteDialogVisible(false);
+          }}
+          onDelete={() => {
+            setDeleteDialogVisible(false);
+            refetch();
+          }}
+        />
+      )}
     </View>
   );
 };

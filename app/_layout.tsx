@@ -80,16 +80,16 @@ const RootLayoutNav = () => {
         setSettings(parsedSettings);
 
         // Set up RTL
-        const isRTL =
-          parsedSettings.language === "ar" || parsedSettings.language === "fa";
-        if (I18nManager.isRTL !== isRTL) {
-          I18nManager.allowRTL(true);
-          I18nManager.forceRTL(true);
-          // I18nManager.swapLeftAndRightInRTL(true);
-          // You might need to reload the app here for changes to take effect
-          // Alert.alert('isRTL', I18nManager..toString());
-          if (!__DEV__) Updates.reloadAsync();
-        }
+        // const isRTL =
+        //   parsedSettings.language === "ar" || parsedSettings.language === "fa";
+        // if (I18nManager.isRTL !== isRTL) {
+        //   I18nManager.allowRTL(true);
+        //   I18nManager.forceRTL(true);
+        //   // I18nManager.swapLeftAndRightInRTL(true);
+        //   // You might need to reload the app here for changes to take effect
+        //   // Alert.alert('isRTL', I18nManager..toString());
+        //   if (!__DEV__) Updates.reloadAsync();
+        // }
       });
     } else {
       setSettings({ ...settings, theme: colorScheme ?? "light" });

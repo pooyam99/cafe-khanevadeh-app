@@ -6,9 +6,7 @@ import {
   Languages,
   LoadingIndicator,
   Locales,
-  ScreenInfo,
   Setting,
-  styles,
 } from "@/lib";
 import * as SecureStore from "expo-secure-store";
 import * as Updates from "expo-updates";
@@ -70,7 +68,7 @@ const Settings = () => {
       ) : (
         <Surface elevation={0}>
           <List.Section>
-            <List.Item
+            {/* <List.Item
               title={Locales.t("language")}
               description={Locales.t("changeLanguage")}
               left={(props) => <List.Icon {...props} icon="translate" />}
@@ -85,7 +83,7 @@ const Settings = () => {
                       onPress={() => setDisplay({ ...display, language: true })}
                     />
                   }>
-                  {/* <Menu.Item
+                  <Menu.Item
                     title="System"
                     trailingIcon={
                       settings.language === "auto" ? "check" : undefined
@@ -94,7 +92,7 @@ const Settings = () => {
                       setSettings({ ...settings, language: "auto" });
                       setDisplay({ ...display, language: false });
                     }}
-                  /> */}
+                  />
                   {Object.entries(Languages).map((lang) => (
                     <Menu.Item
                       key={lang[0]}
@@ -113,7 +111,7 @@ const Settings = () => {
                   ))}
                 </Menu>
               )}
-            />
+            /> */}
             <List.Item
               title={Locales.t("mode")}
               description={Locales.t("changeMode")}

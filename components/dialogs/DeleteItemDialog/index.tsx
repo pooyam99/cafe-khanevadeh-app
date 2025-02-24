@@ -3,17 +3,18 @@ import { Locales } from "@/lib";
 import { Alert } from "react-native";
 import { Button, Dialog, Portal, Text, useTheme } from "react-native-paper";
 
+import { MenuItemT, MiscItemT } from "@/lib/types/menu";
 import fetchUrl from "@/lib/utils/fetchUrl";
 
 const DeleteItemDialog = ({
-  id,
   mode,
+  item,
   visible,
   onDismiss,
   onDelete,
 }: {
-  id: string;
   mode: "menu" | "coffee" | "misc";
+  item: MenuItemT | MiscItemT;
   visible: boolean;
   onDismiss: () => void;
   onDelete: () => void;
@@ -22,9 +23,9 @@ const DeleteItemDialog = ({
   const [loading, setLoading] = useState(false);
 
   const url = {
-    menu: `/menu-items/${id}`,
-    coffee: `/coffee-items/${id}`,
-    misc: `/misc-items/${id}`,
+    menu: `/menu-items/${item.id}`,
+    coffee: `/coffee-items/${item.id}`,
+    misc: `/misc-items/${item.id}`,
   }[mode];
 
   const onSubmit = async () => {
@@ -49,7 +50,9 @@ const DeleteItemDialog = ({
       <Dialog visible={visible} onDismiss={onDismiss}>
         <Dialog.Title>{Locales.t("deleteItem.title")}</Dialog.Title>
         <Dialog.Content className="gap-2">
-          <Text>{Locales.t("deleteItem.message")}</Text>
+          <Text>
+            {Locales.t("deleteItem.message", { name: item.attributes.title })}
+          </Text>
         </Dialog.Content>
         <Dialog.Actions>
           <Button mode="elevated" className="w-20" onPress={onDismiss}>

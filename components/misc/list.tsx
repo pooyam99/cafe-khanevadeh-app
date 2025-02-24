@@ -30,7 +30,7 @@ const MistList = <T extends CoffeeItemT>({ query }: MistListProps<T>) => {
         renderItem={({ item }) => (
           <MenuCard
             item={item}
-            onPress={() => {
+            onEdit={() => {
               setDialogVisible(true);
               setSelectedItem(item);
             }}

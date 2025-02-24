@@ -30,7 +30,7 @@ const English = {
   },
   deleteItem: {
     title: "Delete Menu Item",
-    message: "Are you sure you want to delete this item?"
+    message: "Are you sure you want to delete '%{name}'?"
   },
   add: "Add",
   login: "Log in",
@@ -39,6 +39,7 @@ const English = {
   options: "Options",
   search: "Search",
   edit: "Edit",
+  delete: "Delete",
   stackNav: "Stack Navigation",
   drawerNav: "Drawer Navigation",
   appearance: "Appearance",

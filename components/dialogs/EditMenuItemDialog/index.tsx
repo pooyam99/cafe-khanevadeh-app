@@ -20,8 +20,6 @@ import * as z from "zod";
 import { MenuItemT, MenuItemType } from "@/lib/types/menu";
 import fetchUrl from "@/lib/utils/fetchUrl";
 
-import DeleteItemDialog from "../DeleteItemDialog";
-
 // Define the schema for form validation
 const schema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -46,7 +44,6 @@ const EditMenuItemDialog = ({
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
 
   const {
     control,
@@ -98,18 +95,7 @@ const EditMenuItemDialog = ({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={onDismiss}>
-        <View className="flex flex-row items-center justify-between" style={{ marginTop: 8 }}>
-          <Dialog.Title>
-            {Locales.t("edit")} «{item.attributes.title}»
-          </Dialog.Title>
-          <View className="px-5">
-            <IconButton
-              mode="contained"
-              icon="trash-can-outline"
-              onPress={() => setDeleteDialogVisible(true)}
-            />
-          </View>
-        </View>
+        <Dialog.Title>{Locales.t("edit")}</Dialog.Title>
         <Dialog.Content className="gap-2">
           <Controller
             control={control}
@@ -257,18 +243,6 @@ const EditMenuItemDialog = ({
           </Button>
         </Dialog.Actions>
       </Dialog>
-
-      <DeleteItemDialog
-        id={item.id.toString()}
-        mode="menu"
-        visible={deleteDialogVisible}
-        onDismiss={() => setDeleteDialogVisible(false)}
-        onDelete={() => {
-          setDeleteDialogVisible(false);
-          refetch();
-          onDismiss();
-        }}
-      />
     </Portal>
   );
 };

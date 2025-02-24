@@ -3,11 +3,10 @@ import { Locales } from "@/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { QueryObserverResult } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
-import { Alert, View } from "react-native";
+import { Alert } from "react-native";
 import {
   Button,
   Dialog,
-  IconButton,
   Portal,
   Text,
   TextInput,
@@ -15,10 +14,8 @@ import {
 } from "react-native-paper";
 import * as z from "zod";
 
-import { MenuItemType, MiscItemT } from "@/lib/types/menu";
+import { MiscItemT } from "@/lib/types/menu";
 import fetchUrl from "@/lib/utils/fetchUrl";
-
-import DeleteItemDialog from "../DeleteItemDialog";
 
 // Define the schema for form validation
 const schema = z.object({
@@ -44,7 +41,6 @@ const EditMiscItemDialog = ({
 }) => {
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
-  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
 
   const url = {
     coffee: `/coffee-items/${item.id}`,
@@ -73,11 +69,6 @@ const EditMiscItemDialog = ({
     [theme.colors.elevation.level3],
   );
 
-  const menuItemTypes: MenuItemType[] = useMemo(
-    () => ["coffee", "chocolate", "food", "drink"],
-    [],
-  );
-
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
@@ -100,20 +91,7 @@ const EditMiscItemDialog = ({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={onDismiss}>
-        <View
-          className="flex flex-row items-center justify-between"
-          style={{ marginTop: 8 }}>
-          <Dialog.Title>
-            {Locales.t("edit")} «{item.attributes.title}»
-          </Dialog.Title>
-          <View className="px-5">
-            <IconButton
-              mode="contained"
-              icon="trash-can-outline"
-              onPress={() => setDeleteDialogVisible(true)}
-            />
-          </View>
-        </View>
+        <Dialog.Title>{Locales.t("edit")}</Dialog.Title>
         <Dialog.Content className="gap-2">
           <Controller
             control={control}
@@ -199,18 +177,6 @@ const EditMiscItemDialog = ({
           </Button>
         </Dialog.Actions>
       </Dialog>
-
-      <DeleteItemDialog
-        id={item.id.toString()}
-        mode={mode}
-        visible={deleteDialogVisible}
-        onDismiss={() => setDeleteDialogVisible(false)}
-        onDelete={() => {
-          setDeleteDialogVisible(false);
-          refetch();
-          onDismiss();
-        }}
-      />
     </Portal>
   );
 };

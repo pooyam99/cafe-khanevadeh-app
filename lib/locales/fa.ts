@@ -30,7 +30,7 @@ const Farsi = {
   },
   deleteItem: {
     title: "حذف محصول",
-    message: "آیا از حذف این محصول اطمینان دارید؟",
+    message: "آیا از حذف «%{name}» اطمینان دارید؟",
   },
   add: "افزودن",
   login: "ورود",
@@ -39,6 +39,7 @@ const Farsi = {
   options: "گزینه‌ها",
   search: "جستجو",
   edit: "ویرایش",
+  delete: "حذف",
   stackNav: "مسیریابی پشته‌ای",
   drawerNav: "مسیریابی کشویی",
   appearance: "ظاهر",
