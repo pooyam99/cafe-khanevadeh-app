@@ -3,24 +3,19 @@ import { LoadingIndicator } from "@/lib";
 import { UseQueryResult } from "@tanstack/react-query";
 import { FlatList, View } from "react-native";
 
-import { MenuItemT, MiscItemT } from "@/lib/types/menu";
+import { CoffeeItemT, MenuItemT, MiscItemT } from "@/lib/types/menu";
 import { cn } from "@/lib/utils/className";
 
 import EditMenuItemDialog from "../dialogs/EditMenuItemDialog";
-import EditMiscItemDialog from "../dialogs/EditMiscItemDialog";
 import EmptySection from "../EmptySection";
-import MenuCard from "./card";
+import MenuCard from "../menu/card";
 
-interface MenuListProps<T> {
-  mode: T extends MenuItemT ? "menu" : "coffee" | "misc";
+interface MistListProps<T> {
   query: UseQueryResult<T[], Error>;
 }
 
-const MenuList = <T extends MenuItemT | MiscItemT>({
-  mode,
-  query,
-}: MenuListProps<T>) => {
-  const { data, isError, refetch, isRefetching, isLoading } = query;
+const MistList = <T extends CoffeeItemT>({ query }: MistListProps<T>) => {
+  const { data, error, refetch, isRefetching, isLoading } = query;
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
 
@@ -47,7 +42,7 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
         )}
         refreshing={isRefetching}
         onRefresh={refetch}
-        ListEmptyComponent={<EmptySection error={isError} />}
+        ListEmptyComponent={<EmptySection error={error} />}
         contentContainerClassName={cn(
           "py-3 px-2",
           (!data || data.length === 0) &&
@@ -55,31 +50,19 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
         )}
       />
 
-      {selectedItem &&
-        (mode === "menu" ? (
-          <EditMenuItemDialog
-            item={selectedItem as MenuItemT}
-            visible={dialogVisible}
-            refetch={refetch}
-            onDismiss={() => {
-              setDialogVisible(false);
-              setSelectedItem(null);
-            }}
-          />
-        ) : (
-          <EditMiscItemDialog
-            mode={mode}
-            item={selectedItem as MiscItemT}
-            visible={dialogVisible}
-            refetch={refetch}
-            onDismiss={() => {
-              setDialogVisible(false);
-              setSelectedItem(null);
-            }}
-          />
-        ))}
+      {selectedItem && (
+        <EditMenuItemDialog
+          item={selectedItem}
+          visible={dialogVisible}
+          refetch={refetch}
+          onDismiss={() => {
+            setDialogVisible(false);
+            setSelectedItem(null);
+          }}
+        />
+      )}
     </View>
   );
 };
 
-export default MenuList;
+export default MistList;

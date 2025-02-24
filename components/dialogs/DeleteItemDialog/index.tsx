@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Locales } from "@/lib";
 import { Alert } from "react-native";
-import { Button, Dialog, Portal, Text } from "react-native-paper";
+import { Button, Dialog, Portal, Text, useTheme } from "react-native-paper";
 
 import fetchUrl from "@/lib/utils/fetchUrl";
 
@@ -18,6 +18,7 @@ const DeleteItemDialog = ({
   onDismiss: () => void;
   onDelete: () => void;
 }) => {
+  const theme = useTheme();
   const [loading, setLoading] = useState(false);
 
   const url = {
@@ -56,8 +57,8 @@ const DeleteItemDialog = ({
           </Button>
           <Button
             loading={loading}
-            mode="contained"
             className="w-20"
+            mode="contained"
             onPress={onSubmit}>
             {Locales.t("buttons.yes")}
           </Button>

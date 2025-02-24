@@ -1,11 +1,51 @@
 import React from "react";
-import { Locales, TabBar, TabsHeader } from "@/lib";
+import { Locales, Setting, TabBar, TabsHeader } from "@/lib";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { router, Tabs } from "expo-router";
-import { Appbar, Text, Tooltip } from "react-native-paper";
+import * as Localization from "expo-localization";
+import { Tabs } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import { Platform, useColorScheme } from "react-native";
+
 import AddMenuItemDialog from "@/components/dialogs/AddMenuItemDialog";
+import AddMiscItemDialog from "@/components/dialogs/AddMiscItemDialog";
 
 const TabLayout = () => {
+  const colorScheme = useColorScheme();
+  const [settings, setSettings] = React.useState<Setting>({
+    theme: "dark",
+    color: "cafe",
+    language: "fa",
+  });
+
+  // Load settings from the device
+  React.useEffect(() => {
+    if (Platform.OS !== "web") {
+      SecureStore.getItemAsync("settings").then((result) => {
+        if (result === null) {
+          SecureStore.setItemAsync("settings", JSON.stringify(settings)).then(
+            (res) => console.log(res),
+          );
+        }
+
+        setSettings(JSON.parse(result ?? JSON.stringify(settings)));
+      });
+    } else {
+      setSettings({ ...settings, theme: colorScheme ?? "light" });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    if (settings.language === "auto") {
+      Locales.locale = Localization.getLocales()[1].languageCode ?? "fa";
+    } else {
+      Locales.locale = settings.language;
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Tabs
       tabBar={(props) => <TabBar {...props} />}
@@ -17,7 +57,7 @@ const TabLayout = () => {
         name="index"
         options={{
           title: Locales.t("tabs.menu"),
-          headerRight: () =>  <AddMenuItemDialog />,
+          headerRight: () => <AddMenuItemDialog />,
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
@@ -35,6 +75,7 @@ const TabLayout = () => {
         name="coffee"
         options={{
           title: Locales.t("tabs.coffee"),
+          headerRight: () => <AddMiscItemDialog mode="coffee" />,
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
@@ -48,6 +89,7 @@ const TabLayout = () => {
         name="misc"
         options={{
           title: Locales.t("tabs.misc"),
+          headerRight: () => <AddMiscItemDialog mode="misc" />,
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}

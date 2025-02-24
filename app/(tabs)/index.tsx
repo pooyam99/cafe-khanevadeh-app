@@ -10,7 +10,7 @@ const Menu = () => {
 
   return (
     <Surface style={styles.screen}>
-      <MenuList query={query} />
+      <MenuList mode="menu" query={query} />
     </Surface>
   );
 };

@@ -69,198 +69,188 @@ const Settings = () => {
         <LoadingIndicator />
       ) : (
         <Surface elevation={0}>
-          <List.AccordionGroup>
-            <List.Accordion
-              id="1"
-              title={Locales.t("appearance")}
-              expanded
-              left={(props) => <List.Icon {...props} icon="palette" />}>
-              <List.Item
-                title={Locales.t("language")}
-                description={Locales.t("changeLanguage")}
-                left={(props) => <List.Icon {...props} icon="translate" />}
-                right={(props) => (
-                  <Menu
-                    visible={display.language}
-                    onDismiss={() =>
-                      setDisplay({ ...display, language: false })
+          <List.Section>
+            <List.Item
+              title={Locales.t("language")}
+              description={Locales.t("changeLanguage")}
+              left={(props) => <List.Icon {...props} icon="translate" />}
+              right={(props) => (
+                <Menu
+                  visible={display.language}
+                  onDismiss={() => setDisplay({ ...display, language: false })}
+                  anchor={
+                    <IconButton
+                      {...props}
+                      icon="pencil"
+                      onPress={() => setDisplay({ ...display, language: true })}
+                    />
+                  }>
+                  {/* <Menu.Item
+                    title="System"
+                    trailingIcon={
+                      settings.language === "auto" ? "check" : undefined
                     }
-                    anchor={
-                      <IconButton
-                        {...props}
-                        icon="pencil"
-                        onPress={() =>
-                          setDisplay({ ...display, language: true })
-                        }
-                      />
-                    }>
+                    onPress={() => {
+                      setSettings({ ...settings, language: "auto" });
+                      setDisplay({ ...display, language: false });
+                    }}
+                  /> */}
+                  {Object.entries(Languages).map((lang) => (
                     <Menu.Item
-                      title="System"
+                      key={lang[0]}
+                      title={`${lang[1].name}`}
                       trailingIcon={
-                        settings.language === "auto" ? "check" : undefined
+                        settings.language === lang[0] ? "check" : undefined
                       }
                       onPress={() => {
-                        setSettings({ ...settings, language: "auto" });
+                        setSettings({
+                          ...settings,
+                          language: lang[0] as Language,
+                        });
                         setDisplay({ ...display, language: false });
                       }}
                     />
-                    {Object.entries(Languages).map((lang) => (
+                  ))}
+                </Menu>
+              )}
+            />
+            <List.Item
+              title={Locales.t("mode")}
+              description={Locales.t("changeMode")}
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon={
+                    settings.theme === "auto"
+                      ? "theme-light-dark"
+                      : settings.theme === "light"
+                        ? "weather-sunny"
+                        : "weather-night"
+                  }
+                />
+              )}
+              right={(props) => (
+                <Menu
+                  visible={display.theme}
+                  onDismiss={() => setDisplay({ ...display, theme: false })}
+                  anchor={
+                    <IconButton
+                      {...props}
+                      icon="pencil"
+                      onPress={() => setDisplay({ ...display, theme: true })}
+                    />
+                  }>
+                  <Menu.Item
+                    title={Locales.t("system")}
+                    leadingIcon="theme-light-dark"
+                    trailingIcon={
+                      settings.theme === "auto" ? "check" : undefined
+                    }
+                    onPress={() => {
+                      setSettings({ ...settings, theme: "auto" });
+                      setDisplay({ ...display, theme: false });
+                    }}
+                  />
+                  <Menu.Item
+                    title={Locales.t("lightMode")}
+                    leadingIcon="weather-sunny"
+                    trailingIcon={
+                      settings.theme === "light" ? "check" : undefined
+                    }
+                    onPress={() => {
+                      setSettings({ ...settings, theme: "light" });
+                      setDisplay({ ...display, theme: false });
+                    }}
+                  />
+                  <Menu.Item
+                    title={Locales.t("darkMode")}
+                    leadingIcon="weather-night"
+                    trailingIcon={
+                      settings.theme === "dark" ? "check" : undefined
+                    }
+                    onPress={() => {
+                      setSettings({ ...settings, theme: "dark" });
+                      setDisplay({ ...display, theme: false });
+                    }}
+                  />
+                </Menu>
+              )}
+            />
+            <List.Item
+              title={Locales.t("color")}
+              description={Locales.t("changeColor")}
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="palette-swatch-variant"
+                  color={
+                    Colors[
+                      settings.theme === "auto"
+                        ? (colorScheme ?? "light")
+                        : settings.theme
+                    ][settings.color]?.primary
+                  }
+                />
+              )}
+              right={(props) => (
+                <Menu
+                  visible={display.color}
+                  onDismiss={() => setDisplay({ ...display, color: false })}
+                  anchor={
+                    <IconButton
+                      {...props}
+                      icon="pencil"
+                      onPress={() => setDisplay({ ...display, color: true })}
+                    />
+                  }>
+                  {Object.keys(Colors.light).map((color) => (
+                    <Surface
+                      key={color}
+                      elevation={0}
+                      style={{
+                        width: "100%",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}>
+                      <Surface
+                        elevation={0}
+                        style={{
+                          padding: 4,
+                          marginLeft: 8,
+                          borderRadius: 16,
+                          backgroundColor:
+                            color !== settings.color
+                              ? undefined
+                              : themeColors[color]?.primary,
+                        }}>
+                        <Icon
+                          size={24}
+                          source="palette"
+                          color={
+                            color !== settings.color
+                              ? themeColors[color as Color]?.primary
+                              : themeColors[color].onPrimary
+                          }
+                        />
+                      </Surface>
+
                       <Menu.Item
-                        key={lang[0]}
-                        title={`${lang[1].name} / ${lang[1].nativeName}`}
-                        trailingIcon={
-                          settings.language === lang[0] ? "check" : undefined
-                        }
+                        key={color}
+                        title={Locales.t(color)}
                         onPress={() => {
                           setSettings({
                             ...settings,
-                            language: lang[0] as Language,
+                            color: color as Color,
                           });
-                          setDisplay({ ...display, language: false });
+                          setDisplay({ ...display, color: false });
                         }}
                       />
-                    ))}
-                  </Menu>
-                )}
-              />
-              <List.Item
-                title={Locales.t("mode")}
-                description={Locales.t("changeMode")}
-                left={(props) => (
-                  <List.Icon
-                    {...props}
-                    icon={
-                      settings.theme === "auto"
-                        ? "theme-light-dark"
-                        : settings.theme === "light"
-                          ? "weather-sunny"
-                          : "weather-night"
-                    }
-                  />
-                )}
-                right={(props) => (
-                  <Menu
-                    visible={display.theme}
-                    onDismiss={() => setDisplay({ ...display, theme: false })}
-                    anchor={
-                      <IconButton
-                        {...props}
-                        icon="pencil"
-                        onPress={() => setDisplay({ ...display, theme: true })}
-                      />
-                    }>
-                    <Menu.Item
-                      title={Locales.t("system")}
-                      leadingIcon="theme-light-dark"
-                      trailingIcon={
-                        settings.theme === "auto" ? "check" : undefined
-                      }
-                      onPress={() => {
-                        setSettings({ ...settings, theme: "auto" });
-                        setDisplay({ ...display, theme: false });
-                      }}
-                    />
-                    <Menu.Item
-                      title={Locales.t("lightMode")}
-                      leadingIcon="weather-sunny"
-                      trailingIcon={
-                        settings.theme === "light" ? "check" : undefined
-                      }
-                      onPress={() => {
-                        setSettings({ ...settings, theme: "light" });
-                        setDisplay({ ...display, theme: false });
-                      }}
-                    />
-                    <Menu.Item
-                      title={Locales.t("darkMode")}
-                      leadingIcon="weather-night"
-                      trailingIcon={
-                        settings.theme === "dark" ? "check" : undefined
-                      }
-                      onPress={() => {
-                        setSettings({ ...settings, theme: "dark" });
-                        setDisplay({ ...display, theme: false });
-                      }}
-                    />
-                  </Menu>
-                )}
-              />
-              <List.Item
-                title={Locales.t("color")}
-                description={Locales.t("changeColor")}
-                left={(props) => (
-                  <List.Icon
-                    {...props}
-                    icon="palette-swatch-variant"
-                    color={
-                      Colors[
-                        settings.theme === "auto"
-                          ? (colorScheme ?? "light")
-                          : settings.theme
-                      ][settings.color]?.primary
-                    }
-                  />
-                )}
-                right={(props) => (
-                  <Menu
-                    visible={display.color}
-                    onDismiss={() => setDisplay({ ...display, color: false })}
-                    anchor={
-                      <IconButton
-                        {...props}
-                        icon="pencil"
-                        onPress={() => setDisplay({ ...display, color: true })}
-                      />
-                    }>
-                    {Object.keys(Colors.light).map((color) => (
-                      <Surface
-                        key={color}
-                        elevation={0}
-                        style={{
-                          width: "100%",
-                          flexDirection: "row",
-                          alignItems: "center",
-                        }}>
-                        <Surface
-                          elevation={0}
-                          style={{
-                            padding: 4,
-                            marginLeft: 8,
-                            borderRadius: 16,
-                            backgroundColor:
-                              color !== settings.color
-                                ? undefined
-                                : themeColors[color]?.primary,
-                          }}>
-                          <Icon
-                            size={24}
-                            source="palette"
-                            color={
-                              color !== settings.color
-                                ? themeColors[color as Color]?.primary
-                                : themeColors[color].onPrimary
-                            }
-                          />
-                        </Surface>
-
-                        <Menu.Item
-                          key={color}
-                          title={Locales.t(color)}
-                          onPress={() => {
-                            setSettings({
-                              ...settings,
-                              color: color as Color,
-                            });
-                            setDisplay({ ...display, color: false });
-                          }}
-                        />
-                      </Surface>
-                    ))}
-                  </Menu>
-                )}
-              />
-            </List.Accordion>
-          </List.AccordionGroup>
+                    </Surface>
+                  ))}
+                </Menu>
+              )}
+            />
+          </List.Section>
         </Surface>
       )}
 

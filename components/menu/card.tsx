@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { Button, Card, IconButton, Text, useTheme } from "react-native-paper";
+import { Card, Text, useTheme } from "react-native-paper";
 
-import { MenuItemT } from "@/lib/types/menu";
+import { MenuItemT, MiscItemT } from "@/lib/types/menu";
 import { cn } from "@/lib/utils/className";
 
 const extractPrices = (price: string) => {
@@ -24,7 +22,7 @@ const extractDescription = (description: string) => {
   };
 };
 
-const MenuCard = <T extends MenuItemT>({
+const MenuCard = <T extends MenuItemT | MiscItemT>({
   item,
   onPress,
 }: {
@@ -66,19 +64,19 @@ const MenuCard = <T extends MenuItemT>({
               )}
               style={{ borderColor: theme.colors.primary }}>
               <View className="flex flex-row">
-                <Text className="font-vazirmatn">{priceOne}</Text>
                 {priceTwo && (
                   <Text style={{ color: theme.colors.outline }}>
                     {variantTwo}:{" "}
                   </Text>
                 )}
+                <Text className="font-vazirmatn">{priceOne}</Text>
               </View>
               {priceTwo && (
                 <View className="flex flex-row">
-                  <Text className="font-vazirmatn">{priceTwo}</Text>
                   <Text style={{ color: theme.colors.outline }}>
                     {variantOne}:{" "}
                   </Text>
+                  <Text className="font-vazirmatn">{priceTwo}</Text>
                 </View>
               )}
             </View>

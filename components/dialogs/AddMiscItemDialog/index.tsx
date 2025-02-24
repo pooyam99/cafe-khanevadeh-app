@@ -7,9 +7,7 @@ import {
   Button,
   Dialog,
   IconButton,
-  Menu,
   Portal,
-  RadioButton,
   Text,
   TextInput,
   useTheme,
@@ -17,7 +15,6 @@ import {
 import * as z from "zod";
 
 import { useMenuItems } from "@/lib/hooks/useMenu";
-import { MenuItemType } from "@/lib/types/menu";
 import fetchUrl from "@/lib/utils/fetchUrl";
 
 // Define the schema for form validation
@@ -25,17 +22,20 @@ const schema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().nullable().optional(),
   price: z.string().min(1, "Price is required"),
-  type: z.enum(["coffee", "chocolate", "food", "drink"]).default("coffee"),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const AddMenuItemDialog = () => {
+const AddMiscItemDialog = ({ mode }: { mode: "coffee" | "misc" }) => {
   const theme = useTheme();
   const { refetch } = useMenuItems();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
+
+  const url = {
+    coffee: `/coffee-items`,
+    misc: `/misc-items`,
+  }[mode];
 
   const {
     reset,
@@ -48,7 +48,6 @@ const AddMenuItemDialog = () => {
       title: "",
       description: "",
       price: "",
-      type: "coffee",
     },
   });
 
@@ -66,15 +65,10 @@ const AddMenuItemDialog = () => {
     [theme.colors.elevation.level3],
   );
 
-  const menuItemTypes: MenuItemType[] = useMemo(
-    () => ["coffee", "chocolate", "food", "drink"],
-    [],
-  );
-
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
-      await fetchUrl(`/menu-items`, {
+      await fetchUrl(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -166,74 +160,9 @@ const AddMenuItemDialog = () => {
                 {errors.price.message}
               </Text>
             )}
-
-            <Controller
-              control={control}
-              name="type"
-              render={({ field: { onChange, value } }) => (
-                <View
-                  className="relative mt-1.5 flex h-[3.75rem] flex-row items-center justify-between rounded-[0.85rem] border"
-                  style={{
-                    borderColor: theme.colors.outline,
-                  }}>
-                  <Text
-                    className="absolute -top-3 left-2.5 z-0 px-1.5 text-sm"
-                    style={{
-                      backgroundColor: theme.colors.elevation.level3,
-                      color: theme.colors.onSurfaceVariant,
-                    }}>
-                    {Locales.t("menuItemAttributes.type.title")}
-                  </Text>
-                  <Text className="px-4">
-                    {Locales.t(`menuItemAttributes.type.${value}`)}
-                  </Text>
-                  <Menu
-                    visible={openMenu}
-                    onDismiss={() => setOpenMenu(false)}
-                    anchorPosition="bottom"
-                    anchor={
-                      <IconButton
-                        onPress={() => setOpenMenu(true)}
-                        icon={"chevron-down"}
-                      />
-                    }>
-                    <RadioButton.Group
-                      onValueChange={(newValue) => {
-                        onChange(newValue as MenuItemType);
-                        setOpenMenu(false);
-                      }}
-                      value={value}>
-                      <View
-                        style={{
-                          flexDirection: "column",
-                          justifyContent: "space-between",
-                        }}>
-                        {menuItemTypes.map((menuItemType) => (
-                          <RadioButton.Item
-                            key={menuItemType}
-                            label={Locales.t(
-                              `menuItemAttributes.type.${menuItemType}`,
-                            )}
-                            value={menuItemType}
-                          />
-                        ))}
-                      </View>
-                    </RadioButton.Group>
-                  </Menu>
-                </View>
-              )}
-            />
-            {errors.type && (
-              <Text style={{ color: theme.colors.error }}>
-                {errors.type.message}
-              </Text>
-            )}
           </Dialog.Content>
           <Dialog.Actions>
-            <Button
-              mode="elevated"
-              className="w-20"
-              onPress={onDismiss}>
+            <Button mode="elevated" className="w-20" onPress={onDismiss}>
               {Locales.t("buttons.cancel")}
             </Button>
             <Button
@@ -251,4 +180,4 @@ const AddMenuItemDialog = () => {
   );
 };
 
-export default AddMenuItemDialog;
+export default AddMiscItemDialog;

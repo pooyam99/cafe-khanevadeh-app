@@ -1,14 +1,31 @@
 import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
 
-const EmptySection = ({ error }: { error?: Error | null }) => {
+const EmptySection = ({ error }: { error?: boolean }) => {
+  const theme = useTheme();
+
   return (
     <View className="flex size-full flex-col items-center justify-center">
-      {error ? (
-        <Text className="text-2xl">خطا در دریافت اطلاعات</Text>
+      {!!error ? (
+        <View className="flex flex-col items-center" style={{ gap: 16 }}>
+          <MaterialCommunityIcons
+            name="alert-circle-outline"
+            color={theme.colors.error}
+            size={120}
+          />
+          <Text className="text-2xl">خطا در دریافت اطلاعات</Text>
+        </View>
       ) : (
-        <Text className="text-2xl">اطلاعات یافت نشد</Text>
+        <View className="flex flex-col items-center" style={{ gap: 16 }}>
+          <MaterialCommunityIcons
+            name="clipboard-search-outline"
+            color={theme.colors.error}
+            size={120}
+          />
+          <Text className="text-2xl">فهرست خالی است</Text>
+        </View>
       )}
     </View>
   );

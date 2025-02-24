@@ -10,6 +10,7 @@ import * as Localization from "expo-localization";
 import { SplashScreen, Stack } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { StatusBar } from "expo-status-bar";
+import * as Updates from "expo-updates";
 import { Alert, I18nManager, Platform, useColorScheme } from "react-native";
 import { adaptNavigationTheme, PaperProvider } from "react-native-paper";
 
@@ -82,11 +83,12 @@ const RootLayoutNav = () => {
         const isRTL =
           parsedSettings.language === "ar" || parsedSettings.language === "fa";
         if (I18nManager.isRTL !== isRTL) {
-          I18nManager.allowRTL(true)
+          I18nManager.allowRTL(true);
           I18nManager.forceRTL(true);
-          I18nManager.swapLeftAndRightInRTL(true);
+          // I18nManager.swapLeftAndRightInRTL(true);
           // You might need to reload the app here for changes to take effect
           // Alert.alert('isRTL', I18nManager..toString());
+          if (!__DEV__) Updates.reloadAsync();
         }
       });
     } else {

@@ -1,34 +1,18 @@
 import React from "react";
-import { Locales, ScreenInfo, styles } from "@/lib";
-import { router } from "expo-router";
-import { Button, Surface } from "react-native-paper";
+import { styles } from "@/lib";
+import { Surface } from "react-native-paper";
 
-const Misc = () => (
-  <Surface style={styles.screen}>
-    <ScreenInfo
-      title={Locales.t("tabs.coffee")}
-      path="app/(tabs)/profile.tsx"
-    />
+import MenuList from "@/components/menu/list";
+import { useMiscItems } from "@/lib/hooks/useMisc";
 
-    <Surface
-      elevation={0}
-      style={{
-        padding: 16,
-        gap: 16,
-        position: "absolute",
-        left: 0,
-        right: 0,
-        bottom: 0,
-      }}>
-      <Button mode="contained" onPress={() => router.push("/(auth)/login")}>
-        Login
-      </Button>
+const Misc = () => {
+  const query = useMiscItems();
 
-      <Button mode="contained" onPress={() => router.push("/(auth)/signup")}>
-        Sign Up
-      </Button>
+  return (
+    <Surface style={styles.screen}>
+      <MenuList mode="misc" query={query} />
     </Surface>
-  </Surface>
-);
+  );
+};
 
 export default Misc;

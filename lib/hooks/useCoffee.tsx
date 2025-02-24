@@ -1,14 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
 
-import { MenuItemT } from "../types/menu";
+import { CoffeeItemT, MiscItemT } from "../types/menu";
 import fetchUrl from "../utils/fetchUrl";
 
-const MENU_ITEMS_CACHE_KEY = "menuItemsCache";
+const MENU_ITEMS_CACHE_KEY = "coffeeItemsCache";
 
-const fetchMenuItems = async (): Promise<MenuItemT[]> => {
+const fetchCoffeeItems = async (): Promise<MiscItemT[]> => {
   try {
-    const response = await fetchUrl<MenuItemT[]>("/menu-items");
+    const response = await fetchUrl<MiscItemT[]>("/coffee-items");
     // Cache the fetched data
     await AsyncStorage.setItem(MENU_ITEMS_CACHE_KEY, JSON.stringify(response));
     return response;
@@ -22,10 +22,10 @@ const fetchMenuItems = async (): Promise<MenuItemT[]> => {
   }
 };
 
-export const useMenuItems = () => {
-  return useQuery<MenuItemT[]>({
-    queryKey: ["menuItems"],
-    queryFn: fetchMenuItems,
+export const useCoffeeItems = () => {
+  return useQuery<MiscItemT[]>({
+    queryKey: ["coffeeItems"],
+    queryFn: fetchCoffeeItems,
     staleTime: 1000 * 60 * 60,
   });
 };
