@@ -24,11 +24,11 @@ const extractDescription = (description: string) => {
   };
 };
 
-const MenuCard = ({
+const MenuCard = <T extends MenuItemT>({
   item,
   onPress,
 }: {
-  item: MenuItemT;
+  item: T;
   onPress: () => void;
 }) => {
   const theme = useTheme();
@@ -61,7 +61,7 @@ const MenuCard = ({
           <View className="flex flex-row items-center justify-center">
             <View
               className={cn(
-                "flex items-start justify-center border-2 px-4 py-2",
+                "flex items-start justify-center border-2 px-4 py-1",
                 priceTwo ? "rounded-2xl px-2 py-1" : "rounded-full",
               )}
               style={{ borderColor: theme.colors.primary }}>

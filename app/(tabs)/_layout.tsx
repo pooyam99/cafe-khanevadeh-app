@@ -2,7 +2,8 @@ import React from "react";
 import { Locales, TabBar, TabsHeader } from "@/lib";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, Tabs } from "expo-router";
-import { Appbar, Tooltip } from "react-native-paper";
+import { Appbar, Text, Tooltip } from "react-native-paper";
+import AddMenuItemDialog from "@/components/dialogs/AddMenuItemDialog";
 
 const TabLayout = () => {
   return (
@@ -16,6 +17,7 @@ const TabLayout = () => {
         name="index"
         options={{
           title: Locales.t("tabs.menu"),
+          headerRight: () =>  <AddMenuItemDialog />,
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}

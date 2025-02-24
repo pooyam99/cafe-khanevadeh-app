@@ -1,13 +1,18 @@
-import React from 'react'
-import { Surface } from 'react-native-paper'
+import React from "react";
+import { styles } from "@/lib";
+import { Surface } from "react-native-paper";
 
-import { styles } from '@/lib'
-import MenuList from '@/components/menu/list'
+import { useMenuItems } from "@/lib/hooks/useMenu";
+import MenuList from "@/components/menu/list";
 
-const Menu = () => (
-  <Surface style={styles.screen}>
-    <MenuList />
-  </Surface>
-)
+const Menu = () => {
+  const query = useMenuItems();
 
-export default Menu
+  return (
+    <Surface style={styles.screen}>
+      <MenuList query={query} />
+    </Surface>
+  );
+};
+
+export default Menu;

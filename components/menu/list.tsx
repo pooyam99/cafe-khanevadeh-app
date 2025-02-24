@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { setItem } from "expo-secure-store";
+import { LoadingIndicator } from "@/lib";
+import { UseQueryResult } from "@tanstack/react-query";
 import { FlatList, View } from "react-native";
-import { ActivityIndicator, Dialog, Text } from "react-native-paper";
 
-import { useMenuItems } from "@/lib/hooks/useMenu";
 import { MenuItemT } from "@/lib/types/menu";
 import { cn } from "@/lib/utils/className";
 
@@ -11,13 +10,17 @@ import EditMenuItemDialog from "../dialogs/EditMenuItemDialog";
 import EmptySection from "../EmptySection";
 import MenuCard from "./card";
 
-const MenuList = () => {
-  const { data, error, refetch, isRefetching, isLoading } = useMenuItems();
+interface MenuListProps<T> {
+  query: UseQueryResult<T[], Error>;
+}
+
+const MenuList = <T extends MenuItemT>({ query }: MenuListProps<T>) => {
+  const { data, error, refetch, isRefetching, isLoading } = query;
   const [dialogVisible, setDialogVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<MenuItemT | null>(null);
+  const [selectedItem, setSelectedItem] = useState<T | null>(null);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" className="size-full" />;
+    return <LoadingIndicator />;
   }
 
   return (
@@ -51,6 +54,7 @@ const MenuList = () => {
         <EditMenuItemDialog
           item={selectedItem}
           visible={dialogVisible}
+          refetch={refetch}
           onDismiss={() => {
             setDialogVisible(false);
             setSelectedItem(null);
