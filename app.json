@@ -13,15 +13,22 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": true,
+        "ExpoLocalization_forcesRTL": true
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#161514"
-      }
+      },
+      "package": "com.pooyam99.cafekhanevadeh"
     },
     "web": {
       "bundler": "metro",
@@ -54,7 +61,14 @@
     },
     "extra": {
       "supportsRTL": true,
-      "forcesRTL": true
-    }
+      "forcesRTL": true,
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b82960ad-bcfb-4e39-818f-209fbbdef5ad"
+      }
+    },
+    "owner": "pooyam99"
   }
 }
