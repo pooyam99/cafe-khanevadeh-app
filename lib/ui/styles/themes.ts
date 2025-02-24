@@ -27,6 +27,13 @@ const BaseDarkTheme = {
 const Themes = {
   light: {
     default: BaseLightTheme,
+    cafe: {
+      ...BaseLightTheme,
+      colors: {
+        ...BaseLightTheme.colors,
+        ...Colors.light.cafe,
+      },
+    },
     orange: {
       ...BaseLightTheme,
       colors: {
@@ -107,6 +114,13 @@ const Themes = {
   },
   dark: {
     default: BaseDarkTheme,
+    cafe: {
+      ...BaseDarkTheme,
+      colors: {
+        ...BaseDarkTheme.colors,
+        ...Colors.dark.cafe,
+      },
+    },
     red: {
       ...BaseDarkTheme,
       colors: {
