@@ -10,7 +10,7 @@ import * as Localization from "expo-localization";
 import { SplashScreen, Stack } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { StatusBar } from "expo-status-bar";
-import { Platform, useColorScheme } from "react-native";
+import { Alert, I18nManager, Platform, useColorScheme } from "react-native";
 import { adaptNavigationTheme, PaperProvider } from "react-native-paper";
 
 import "./global.css";
@@ -61,7 +61,7 @@ const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
   const [settings, setSettings] = React.useState<Setting>({
     theme: "dark",
-    color: "default",
+    color: "cafe",
     language: "fa",
   });
 
@@ -75,7 +75,19 @@ const RootLayoutNav = () => {
           );
         }
 
-        setSettings(JSON.parse(result ?? JSON.stringify(settings)));
+        const parsedSettings = JSON.parse(result ?? JSON.stringify(settings));
+        setSettings(parsedSettings);
+
+        // Set up RTL
+        const isRTL =
+          parsedSettings.language === "ar" || parsedSettings.language === "fa";
+        if (I18nManager.isRTL !== isRTL) {
+          I18nManager.allowRTL(true)
+          I18nManager.forceRTL(true);
+          I18nManager.swapLeftAndRightInRTL(true);
+          // You might need to reload the app here for changes to take effect
+          // Alert.alert('isRTL', I18nManager..toString());
+        }
       });
     } else {
       setSettings({ ...settings, theme: colorScheme ?? "light" });
@@ -86,7 +98,7 @@ const RootLayoutNav = () => {
 
   React.useEffect(() => {
     if (settings.language === "auto") {
-      Locales.locale = Localization.getLocales()[0].languageCode ?? "fa";
+      Locales.locale = Localization.getLocales()[1].languageCode ?? "fa";
     } else {
       Locales.locale = settings.language;
     }

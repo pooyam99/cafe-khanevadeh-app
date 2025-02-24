@@ -53,7 +53,8 @@
       "typedRoutes": true
     },
     "extra": {
-      "supportsRTL": true
+      "supportsRTL": true,
+      "forcesRTL": true
     }
   }
 }
