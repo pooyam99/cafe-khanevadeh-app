@@ -82,7 +82,7 @@ const AddMenuItemDialog = () => {
         body: JSON.stringify({ data }),
       });
       refetch();
-      setVisible(false);
+      onDismiss();
     } catch (error: any) {
       Alert.alert("Error submitting item", error);
     } finally {

@@ -38,6 +38,7 @@ const DeleteItemDialog = ({
         },
       });
       onDelete();
+      onDismiss()
     } catch (error: any) {
       Alert.alert("Error submitting changes", error);
     } finally {

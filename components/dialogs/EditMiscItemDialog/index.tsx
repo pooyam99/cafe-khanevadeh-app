@@ -164,7 +164,7 @@ const EditMiscItemDialog = ({
           )}
         </Dialog.Content>
         <Dialog.Actions>
-          <Button mode="contained" className="w-20" onPress={onDismiss}>
+          <Button mode="elevated" className="w-20" onPress={onDismiss}>
             {Locales.t("buttons.cancel")}
           </Button>
           <Button

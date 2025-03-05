@@ -16,6 +16,8 @@ import * as z from "zod";
 
 import { useMenuItems } from "@/lib/hooks/useMenu";
 import fetchUrl from "@/lib/utils/fetchUrl";
+import { useMiscItems } from "@/lib/hooks/useMisc";
+import { useCoffeeItems } from "@/lib/hooks/useCoffee";
 
 // Define the schema for form validation
 const schema = z.object({
@@ -28,7 +30,8 @@ type FormData = z.infer<typeof schema>;
 
 const AddMiscItemDialog = ({ mode }: { mode: "coffee" | "misc" }) => {
   const theme = useTheme();
-  const { refetch } = useMenuItems();
+  const { refetch: refetchMisc } = useMiscItems();
+  const { refetch: refetchCoffee } = useCoffeeItems();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -75,8 +78,8 @@ const AddMiscItemDialog = ({ mode }: { mode: "coffee" | "misc" }) => {
         },
         body: JSON.stringify({ data }),
       });
-      refetch();
-      setVisible(false);
+      mode === "misc" ? refetchMisc() : refetchCoffee();
+      onDismiss();
     } catch (error: any) {
       Alert.alert("Error submitting item", error);
     } finally {
