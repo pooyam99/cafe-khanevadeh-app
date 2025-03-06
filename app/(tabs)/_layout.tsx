@@ -8,6 +8,7 @@ import { Platform, useColorScheme } from "react-native";
 
 import AddMenuItemDialog from "@/components/dialogs/AddMenuItemDialog";
 import AddMiscItemDialog from "@/components/dialogs/AddMiscItemDialog";
+import SearchBar from "@/components/SearchBar";
 
 const TabLayout = () => {
   const colorScheme = useColorScheme();
@@ -57,7 +58,12 @@ const TabLayout = () => {
         name="index"
         options={{
           title: Locales.t("tabs.menu"),
-          headerRight: () => <AddMenuItemDialog />,
+          headerRight: () => (
+            <>
+              <SearchBar />
+              <AddMenuItemDialog />
+            </>
+          ),
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
@@ -75,7 +81,12 @@ const TabLayout = () => {
         name="coffee"
         options={{
           title: Locales.t("tabs.coffee"),
-          headerRight: () => <AddMiscItemDialog mode="coffee" />,
+          headerRight: () => (
+            <>
+              <SearchBar />
+              <AddMiscItemDialog mode="coffee" />
+            </>
+          ),
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}
@@ -89,7 +100,12 @@ const TabLayout = () => {
         name="misc"
         options={{
           title: Locales.t("tabs.misc"),
-          headerRight: () => <AddMiscItemDialog mode="misc" />,
+          headerRight: () => (
+            <>
+              <SearchBar />
+              <AddMiscItemDialog mode="misc" />
+            </>
+          ),
           tabBarIcon: (props) => (
             <MaterialCommunityIcons
               {...props}

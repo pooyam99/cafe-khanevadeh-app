@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { LoadingIndicator } from "@/lib";
 import { UseQueryResult } from "@tanstack/react-query";
 import { FlatList, View } from "react-native";
 
+import { useSearch } from "@/lib/context/SearchContext";
 import { MenuItemT, MiscItemT } from "@/lib/types/menu";
 import { cn } from "@/lib/utils/className";
 
@@ -25,6 +26,22 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
   const [editDialogVisible, setEditDialogVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState<T | null>(null);
   const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const { searchQuery } = useSearch();
+
+  // Filter items based on search query
+  const filteredItems = useMemo(() => {
+    if (!query.data || !searchQuery) {
+      return query.data;
+    }
+
+    return query.data.filter((item) =>
+      item.attributes.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [query.data, searchQuery]);
+
+  // Check if we have no search results
+  const hasNoSearchResults =
+    !!searchQuery && filteredItems?.length === 0 && !query.isLoading;
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -33,7 +50,7 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
   return (
     <View className="size-full gap-2">
       <FlatList
-        data={data}
+        data={filteredItems}
         renderItem={({ item }) => (
           <MenuCard
             item={item}
@@ -53,7 +70,9 @@ const MenuList = <T extends MenuItemT | MiscItemT>({
         )}
         refreshing={isRefetching}
         onRefresh={refetch}
-        ListEmptyComponent={<EmptySection error={isError} />}
+        ListEmptyComponent={
+          <EmptySection error={isError} noResult={hasNoSearchResults} />
+        }
         contentContainerClassName={cn(
           "py-3 px-2",
           (!data || data.length === 0) &&

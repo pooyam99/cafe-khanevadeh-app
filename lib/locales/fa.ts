@@ -8,7 +8,7 @@ const Farsi = {
     no: "خیر",
     cancel: "لغو",
     submit: "ثبت",
-    delete: "حذف"
+    delete: "حذف",
   },
   tabs: {
     menu: "منو",
@@ -37,7 +37,7 @@ const Farsi = {
   signup: "ثبت نام",
   profile: "حساب کاربری",
   options: "گزینه‌ها",
-  search: "جستجو",
+  search: "جستجو...",
   edit: "ویرایش",
   delete: "حذف",
   stackNav: "مسیریابی پشته‌ای",

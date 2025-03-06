@@ -3,7 +3,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 
-const EmptySection = ({ error }: { error?: boolean }) => {
+const EmptySection = ({
+  error,
+  noResult,
+}: {
+  error?: boolean;
+  noResult: boolean;
+}) => {
   const theme = useTheme();
 
   return (
@@ -24,7 +30,9 @@ const EmptySection = ({ error }: { error?: boolean }) => {
             color={theme.colors.error}
             size={120}
           />
-          <Text className="text-2xl">فهرست خالی است</Text>
+          <Text className="text-2xl">
+            {noResult ? "محصول مورد نظر یافت نشد" : "فهرست خالی است"}
+          </Text>
         </View>
       )}
     </View>

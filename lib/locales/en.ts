@@ -37,7 +37,7 @@ const English = {
   signup: "Sign up",
   profile: "Profile",
   options: "Options",
-  search: "Search",
+  search: "Search...",
   edit: "Edit",
   delete: "Delete",
   stackNav: "Stack Navigation",
